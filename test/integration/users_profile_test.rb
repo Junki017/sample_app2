@@ -19,6 +19,8 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
     assert_select 'div.pagination'
     @user.microposts.paginate(page: 1).each do |micropost|
       assert_match micropost.content, response.body
+      assert_match @user.active_relationships.to_s, response.body
+    assert_match @user.passive_relationships.to_s, response.body
     end
   end
 end
